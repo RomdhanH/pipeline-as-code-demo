@@ -1,12 +1,12 @@
 #!groovy
-jettyUrl = 'http://localhost:8081/'
+jettyUrl = 'https://jenkins-iamp.pathfinder.gov.bc.ca/'
 
 node ('docker-cloud') {
    // Mark the code checkout 'stage'....
    stage 'Checkout'
 
    // Get some code from a GitHub repository
-   checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/kishorebhatia/pipeline-as-code-demo']]])
+   checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/RomdhanH/pipeline-as-code-demo']]])
 
    // Get the maven tool.
    // ** NOTE: This 'M3' maven tool must be configured
@@ -21,7 +21,7 @@ node ('docker-cloud') {
    
    stage 'Approve'
    def email = "Please <a href=\""+ env.BUILD_URL + "/input/\">Approve</a> Jenkins job: " + env.JOB_NAME + " Build #" + env.BUILD_NUMBER 
-mail bcc: '', body: email, cc: '', charset: 'UTF-8', from: 'beedemo.sa@gmail.com', mimeType: 'text/html', replyTo: 'beedemo.sa@gmail.com', subject: 'Please Approve', to: 'kbhatia@cloudbees.com'
+mail bcc: '', body: email, cc: '', charset: 'UTF-8', from: 'houssem.romdhane@esprit.tn', mimeType: 'text/html', replyTo: 'houssem.romdhane@opticca.com', subject: 'Please Approve', to: 'houssem.romdhane.op@gmail.com'
 input message: 'Approve?', submitter: 'kbhatia'
 echo 'email sent'
 
